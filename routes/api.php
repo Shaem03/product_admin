@@ -27,6 +27,8 @@ Route::group([
       'middleware' => 'auth:api'
     ], function() {
         Route::get('logout', 'ProductAdminController@logout');
+        Route::post('add_category', 'ProductAdminController@add_category');
+        Route::get('list_category', 'ProductAdminController@list_category');
         Route::get('user', 'ProductAdminController@user');
     });
 });

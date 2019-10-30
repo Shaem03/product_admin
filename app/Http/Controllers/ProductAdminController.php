@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use App\AddCategory;
 class ProductAdminController extends Controller
 {
     /**
@@ -91,5 +92,28 @@ class ProductAdminController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    public function add_category(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        $category = new AddCategory([
+            'name' => $request->name,
+        ]);
+        $category->save();
+
+        return response()->json([
+            'message' => 'Successfully Added!'
+        ], 201);
+
+    }
+
+    public function list_category()
+    {
+        $catgeory_list = AddCategory::get()->toArray();
+        return response()->json($catgeory_list);
     }
 }
